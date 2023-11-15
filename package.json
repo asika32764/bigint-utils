@@ -11,7 +11,8 @@
     "build": "cross-env NODE_ENV=development rollup -c",
     "watch": "cross-env NODE_ENV=development rollup -cw",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
-    "doc": "node generate-docs.js"
+    "doc": "node generate-docs.js",
+    "release": "sh ./bin/release.sh"
   },
   "homepage": "https://github.com/asika32764/bigint-toolkit",
   "repository": {
