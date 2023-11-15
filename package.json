@@ -17,7 +17,7 @@
   "homepage": "https://github.com/asika32764/bigint-toolkit",
   "repository": {
     "type": "git",
-    "url": "https://github.com/asika32764/bigint-toolkit"
+    "url": "git+https://github.com/asika32764/bigint-toolkit.git"
   },
   "author": {
     "name": "Simon Asika",
