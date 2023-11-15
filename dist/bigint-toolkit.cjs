@@ -386,11 +386,11 @@ function toBigInt(num, from = 10) {
  *
  * Set the second argument to TRUE will auto handle negative value to add `-` sign.
  */
-function uint8Array2BigInt(bytes, handleNegative = false) {
+function uint8Array2BigInt(bytes, handleNegative = true) {
     let result = 0n;
     // Check if the most significant bit of the first byte is set (indicating a negative number)
-    const isNegative = (bytes[0] & 0x80) !== 0;
-    if (handleNegative && isNegative) {
+    const isNegative = handleNegative && (bytes[0] & 0x80) !== 0;
+    if (isNegative) {
         // For negative numbers, perform two's complement inversion
         for (let i = 0; i < bytes.length; i++) {
             bytes[i] = ~bytes[i] & 0xff;
