@@ -1,0 +1,12 @@
+.idea
+.gitignore
+.editorconfig
+generate-docs.js
+jest.config.js
+yarn.lock
+README.md
+
+/docs
+/tests
+/rollup.config.mjs
+tsconfig.json
