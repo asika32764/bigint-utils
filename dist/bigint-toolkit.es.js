@@ -382,13 +382,13 @@ function toBigInt(num, from = 10) {
 /**
  * Convert Uint8Array back to bigint.
  *
- * This function will auto handle negative value to `-` sign.
+ * Set the second argument to TRUE will auto handle negative value to add `-` sign.
  */
-function uint8Array2BigInt(bytes) {
+function uint8Array2BigInt(bytes, handleNegative = false) {
     let result = 0n;
     // Check if the most significant bit of the first byte is set (indicating a negative number)
     const isNegative = (bytes[0] & 0x80) !== 0;
-    if (isNegative) {
+    if (handleNegative && isNegative) {
         // For negative numbers, perform two's complement inversion
         for (let i = 0; i < bytes.length; i++) {
             bytes[i] = ~bytes[i] & 0xff;
@@ -409,14 +409,28 @@ function uint8Array2BigInt(bytes) {
 }
 
 /**
+ * Convert Uint8Array back to bigint and make positive.
+ */
+function uint8Array2BigIntIgnoreNegative(bytes) {
+    return uint8Array2BigInt(bytes, false);
+}
+
+/**
  * Convert Uint8Array to hex.
  *
  * This function will convert value to bigint first then to hex,
  * that can make sure negative value is correct handled.
  */
-function uint8Array2Hex(bytes) {
+function uint8Array2Hex(bytes, handleNegative = false) {
+    return bigInt2Hex(uint8Array2BigInt(bytes, handleNegative));
+}
+
+/**
+ * Convert Uint8Array to hex and make result positive.
+ */
+function uint8Array2HexIgnoreNegative(bytes) {
     return bigInt2Hex(uint8Array2BigInt(bytes));
 }
 
-export { BigMath, abs, bigInt2Hex, bigInt2HexPadZero, bigInt2Uint8Array, crt, eGcd, gcd, hex2BigInt, hex2Uint8Array, hexPadZero, isEven, isOdd, isUnit, lcm, max, min, mod, modAdd, modInv, modMultiply, modPow, negate, phi, random, randomBytes, toBigInt, toZn, uint8Array2BigInt, uint8Array2Hex };
+export { BigMath, abs, bigInt2Hex, bigInt2HexPadZero, bigInt2Uint8Array, crt, eGcd, gcd, hex2BigInt, hex2Uint8Array, hexPadZero, isEven, isOdd, isUnit, lcm, max, min, mod, modAdd, modInv, modMultiply, modPow, negate, phi, random, randomBytes, toBigInt, toZn, uint8Array2BigInt, uint8Array2BigIntIgnoreNegative, uint8Array2Hex, uint8Array2HexIgnoreNegative };
 //# sourceMappingURL=bigint-toolkit.es.js.map

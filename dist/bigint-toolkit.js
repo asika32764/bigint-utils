@@ -388,13 +388,13 @@
     /**
      * Convert Uint8Array back to bigint.
      *
-     * This function will auto handle negative value to `-` sign.
+     * Set the second argument to TRUE will auto handle negative value to add `-` sign.
      */
-    function uint8Array2BigInt(bytes) {
+    function uint8Array2BigInt(bytes, handleNegative = false) {
         let result = 0n;
         // Check if the most significant bit of the first byte is set (indicating a negative number)
         const isNegative = (bytes[0] & 0x80) !== 0;
-        if (isNegative) {
+        if (handleNegative && isNegative) {
             // For negative numbers, perform two's complement inversion
             for (let i = 0; i < bytes.length; i++) {
                 bytes[i] = ~bytes[i] & 0xff;
@@ -415,12 +415,26 @@
     }
 
     /**
+     * Convert Uint8Array back to bigint and make positive.
+     */
+    function uint8Array2BigIntIgnoreNegative(bytes) {
+        return uint8Array2BigInt(bytes, false);
+    }
+
+    /**
      * Convert Uint8Array to hex.
      *
      * This function will convert value to bigint first then to hex,
      * that can make sure negative value is correct handled.
      */
-    function uint8Array2Hex(bytes) {
+    function uint8Array2Hex(bytes, handleNegative = false) {
+        return bigInt2Hex(uint8Array2BigInt(bytes, handleNegative));
+    }
+
+    /**
+     * Convert Uint8Array to hex and make result positive.
+     */
+    function uint8Array2HexIgnoreNegative(bytes) {
         return bigInt2Hex(uint8Array2BigInt(bytes));
     }
 
@@ -453,7 +467,9 @@
     exports.toBigInt = toBigInt;
     exports.toZn = toZn;
     exports.uint8Array2BigInt = uint8Array2BigInt;
+    exports.uint8Array2BigIntIgnoreNegative = uint8Array2BigIntIgnoreNegative;
     exports.uint8Array2Hex = uint8Array2Hex;
+    exports.uint8Array2HexIgnoreNegative = uint8Array2HexIgnoreNegative;
 
 }));
 //# sourceMappingURL=bigint-toolkit.js.map

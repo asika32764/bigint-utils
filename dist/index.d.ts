@@ -217,9 +217,14 @@ declare function toBigInt(num: string | bigint | number, from?: number): bigint;
 /**
  * Convert Uint8Array back to bigint.
  *
- * This function will auto handle negative value to `-` sign.
+ * Set the second argument to TRUE will auto handle negative value to add `-` sign.
  */
-declare function uint8Array2BigInt(bytes: Uint8Array): bigint;
+declare function uint8Array2BigInt(bytes: Uint8Array, handleNegative?: boolean): bigint;
+
+/**
+ * Convert Uint8Array back to bigint and make positive.
+ */
+declare function uint8Array2BigIntIgnoreNegative(bytes: Uint8Array): bigint;
 
 /**
  * Convert Uint8Array to hex.
@@ -227,6 +232,11 @@ declare function uint8Array2BigInt(bytes: Uint8Array): bigint;
  * This function will convert value to bigint first then to hex,
  * that can make sure negative value is correct handled.
  */
-declare function uint8Array2Hex(bytes: Uint8Array): string;
+declare function uint8Array2Hex(bytes: Uint8Array, handleNegative?: boolean): string;
 
-export { BigMath, EgcdResult, abs, bigInt2Hex, bigInt2HexPadZero, bigInt2Uint8Array, crt, eGcd, gcd, hex2BigInt, hex2Uint8Array, hexPadZero, isEven, isOdd, isUnit, lcm, max, min, mod, modAdd, modInv, modMultiply, modPow, negate, phi, random, randomBytes, toBigInt, toZn, uint8Array2BigInt, uint8Array2Hex };
+/**
+ * Convert Uint8Array to hex and make result positive.
+ */
+declare function uint8Array2HexIgnoreNegative(bytes: Uint8Array): string;
+
+export { BigMath, EgcdResult, abs, bigInt2Hex, bigInt2HexPadZero, bigInt2Uint8Array, crt, eGcd, gcd, hex2BigInt, hex2Uint8Array, hexPadZero, isEven, isOdd, isUnit, lcm, max, min, mod, modAdd, modInv, modMultiply, modPow, negate, phi, random, randomBytes, toBigInt, toZn, uint8Array2BigInt, uint8Array2BigIntIgnoreNegative, uint8Array2Hex, uint8Array2HexIgnoreNegative };
