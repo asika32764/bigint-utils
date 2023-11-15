@@ -355,6 +355,13 @@ function hex2BigInt(hex) {
 
 /**
  * Convert any base of numbers to bigint.
+ *
+ * ```
+ * toBigInt(12345678)
+ * toBigInt('{hex string}', 16)
+ * ```
+ *
+ * This function will auto add negative to hex string if input value less than 0.
  */
 function toBigInt(num, from = 10) {
     if (typeof num === 'bigint') {
