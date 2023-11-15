@@ -48,6 +48,22 @@ import { max } from 'bigint-toolkit';
 max(5n, 10, 12); // Error
 ```
 
+The conversion functions are useful if you want to hash your BigInt or convert hashed hex string to numbers:
+
+```ts
+import { sha256 } from 'crypto-hash';
+import { bigInt2Uint8Array, uint8Array2BigInt, uint8Array2Hex } from 'bigint-toolkit';
+
+const hashStr: string = sha256(bigInt2Uint8Array(123456789n));
+
+// Convert some hash result to bigint format
+const hashBuffer = blake2b('This is some string', null, 256);
+
+uint8Array2BigInt(hashBuffer);
+uint8Array2Hex(hashBuffer);
+```
+
+
 ## Contribution
 
 ### Report a BUG
