@@ -1,3 +1,6 @@
+/**
+ * Return an absolute value of bigint.
+ */
 function abs(num) {
     if (num < 0n) {
         num *= -1n;
@@ -5,6 +8,19 @@ function abs(num) {
     return num;
 }
 
+/**
+ * Calculates the extended greatest common divisor (eGCD) of two BigInt numbers.
+ *
+ * This function computes the eGCD of two BigInt numbers 'a' and 'b', and returns an object
+ * containing the GCD ('gcd') and coefficients 'x' and 'y' such that 'ax + by = gcd'.
+ *
+ * ```ts
+ * const result = eGcd(16n, 10n);
+ * result.g === 2n;
+ * result.x === -3n;
+ * result.y === 5n;
+ * ```
+ */
 function eGcd(a, b) {
     if (a === 0n) {
         return {
@@ -23,12 +39,15 @@ function eGcd(a, b) {
     }
 }
 
+/**
+ * Finds the smallest positive element that is congruent to a in modulo m.
+ */
 function toZn(a, m) {
     if (m <= 0n) {
         throw new Error('m must be > 0');
     }
-    const aZn = a % m;
-    return (aZn < 0n) ? aZn + m : aZn;
+    const aZm = a % m;
+    return (aZm < 0n) ? aZm + m : aZm;
 }
 /**
  * An alias of toZn()
@@ -38,7 +57,9 @@ function mod(a, m) {
 }
 
 /**
- * Calc the modular inverse.
+ * Calculates the modular multiplicative inverse of a BigInt 'a' modulo 'm'.
+ *
+ * This function computes the value 'x' such that '(a * x) % m === 1' where 'a' and 'm' are BigInt numbers.
  */
 function modInv(a, m) {
     const egcd = eGcd(toZn(a, m), m);
@@ -61,6 +82,11 @@ function crt(num, rem) {
     return sum % prod;
 }
 
+/**
+ * Calculates the greatest common divisor (GCD) of two or more BigInt numbers.
+ *
+ * This function computes the largest positive integer that divides all the input numbers without remainder.
+ */
 function gcd(a, b) {
     if (b === 0n) {
         return a;
@@ -69,57 +95,80 @@ function gcd(a, b) {
 }
 
 /**
- * Simple odd detector.
+ * Check a bigint is odd.
  */
 function isOdd(n) {
     return (n % 2n) === 1n;
 }
 
+/**
+ * Check a bigint is even.
+ */
 function isEven(n) {
     return !isOdd(n);
 }
 
 /**
- * Is abs one.
+ * Check a bigint is unit.
  */
 function isUnit(n) {
     return abs(n) === 1n;
 }
 
+/**
+ * Calculates the least common multiple (LCM) of two or more BigInt numbers.
+ */
 function lcm(a, b) {
     return (a / gcd(a, b)) * b;
 }
 
+/**
+ * Find max from a set of bigint.
+ */
 function max(...nums) {
     return nums.reduce((max, current) => current > max ? current : max);
 }
 
+/**
+ * Find min from a set of bigint.
+ */
 function min(...nums) {
     return nums.reduce((min, current) => current < min ? current : min);
 }
 
+/**
+ * Calculates the modular addition of two BigInt numbers.
+ *
+ * This function computes the result of `(a + b) % m` where `a`, `b`, and `m` are BigInt numbers.
+ */
 function modAdd(a, b, mod) {
     return ((a % mod) + (b % mod)) % mod;
 }
 
+/**
+ * Calculates the modular multiplication of two BigInt numbers.
+ *
+ * This function computes the result of `(a * b) % m` where `a`, `b`, and `m` are BigInt numbers.
+ */
 function modMultiply(a, b, mod) {
     return ((a % mod) * (b % mod)) % mod;
 }
 
 /**
- * To implement a mod-pow logic to handle cases that may create
- * a huge number which over JS memory.
+ * Calculates the modular exponentiation of a BigInt 'base' to the power of a BigInt 'exponent' modulo 'm'.
+ *
+ * This function computes the result of `base^exp % m` where 'base', 'exponent', and 'm' are BigInt numbers.
  */
-function modPow(base, exp, mod) {
-    if (mod === 0n) {
+function modPow(base, exp, m) {
+    if (m === 0n) {
         throw new Error('Cannot modPow with modulus 0');
     }
     if (exp === 0n) {
         return 1n;
     }
-    base = toZn(base, mod);
+    base = toZn(base, m);
     if (exp < 0n) {
-        return modInv(modPow(base, abs(exp), mod), mod);
+        return modInv(modPow(base, abs(exp), m), m);
     }
     let r = 1n;
     while (exp > 0n) {
@@ -127,18 +176,27 @@ function modPow(base, exp, mod) {
             return 0n;
         }
         if (isOdd(exp)) {
-            r = r * base % mod;
+            r = r * base % m;
         }
         exp = exp / 2n;
-        base = base * base % mod;
+        base = base * base % m;
     }
     return r;
 }
 
+/**
+ * Make a bigint negative.
+ */
 function negate(num) {
     return -abs(num);
 }
 
+/**
+ * Calculates Euler's totient function (phi function) of a BigInt 'n'.
+ *
+ * Euler's totient function calculates the count of positive integers less than or equal to 'n'
+ * that are coprime (have greatest common divisor 1) with 'n'.
+ */
 function phi(n) {
     let result = n;
     for (let i = 2n; i * i <= n; i++) {
@@ -149,16 +207,25 @@ function phi(n) {
             result -= result / i;
         }
     }
-    if (n > 1n)
+    if (n > 1n) {
         result -= result / n;
+    }
     return result;
 }
 
+/**
+ * Generates cryptographically strong pseudorandom data, it will return
+ * an Uint8Array object. This function use `crypto.randomBytes()` in node.js
+ * and `window.crypto.getRandomValues()` in Web browser.
+ *
+ * You can convert it to hex by `uint8Array2Hex()` or use some base64
+ * library to convert it to string.
+ */
 function randomBytes(bufferSize) {
     // This checks if the code is running in a Node.js environment
     if (typeof process === 'object' && typeof require === 'function') {
-        const { randomBytes } = require('crypto');
-        return new Uint8Array(randomBytes(bufferSize));
+        const { randomBytes: rb } = require('crypto');
+        return new Uint8Array(rb(bufferSize));
     }
     else {
         // For web environments, use the Web Crypto API
@@ -168,6 +235,9 @@ function randomBytes(bufferSize) {
     }
 }
 
+/**
+ * Generate a random bigint number between 2 numbers.
+ */
 function random(start, end) {
     if (start > end) {
         throw new Error('Start must be less than end');
@@ -212,6 +282,9 @@ var math = /*#__PURE__*/Object.freeze({
 
 const BigMath = math;
 
+/**
+ * Pad `0` to start if hex string length is odd.
+ */
 function hexPadZero(hex) {
     if (hex.length % 2 !== 0) {
         hex = '0' + hex;
@@ -219,6 +292,11 @@ function hexPadZero(hex) {
     return hex;
 }
 
+/**
+ * Bigint to hex conversion.
+ *
+ * The second argument `padZero = true` will pad a `0` on start if return length is odd.
+ */
 function bigInt2Hex(num, padZero = false) {
     let hexString = num.toString(16);
     if (!padZero) {
@@ -227,10 +305,16 @@ function bigInt2Hex(num, padZero = false) {
     return hexPadZero(hexString);
 }
 
+/**
+ * Bigint to hex conversion and pad a `0` on start if return length is odd.
+ */
 function bigInt2HexPadZero(num) {
     return bigInt2Hex(num, true);
 }
 
+/**
+ * Convert hex string to Uint8Array.
+ */
 function hex2Uint8Array(hex) {
     // Calculate the number of bytes needed
     const numBytes = hex.length / 2;
@@ -242,6 +326,9 @@ function hex2Uint8Array(hex) {
     return byteArray;
 }
 
+/**
+ * Bigint to Uint8Array conversion.
+ */
 function bigInt2Uint8Array(num, handleNegative = true) {
     if (num < 0n && handleNegative) {
         const bits = (BigInt(num.toString(2).length) / 8n + 1n) * 8n;
@@ -251,6 +338,9 @@ function bigInt2Uint8Array(num, handleNegative = true) {
     return hex2Uint8Array(bigInt2HexPadZero(num));
 }
 
+/**
+ * Convert hex to bigint and add `-` sign if origin bigint is negative.
+ */
 function hex2BigInt(hex) {
     const isNegative = hex.startsWith('-');
     if (isNegative) {
@@ -260,6 +350,9 @@ function hex2BigInt(hex) {
     return isNegative ? -result : result;
 }
 
+/**
+ * Convert any base of numbers to bigint.
+ */
 function toBigInt(num, from = 10) {
     if (typeof num === 'bigint') {
         return num;
@@ -286,6 +379,11 @@ function toBigInt(num, from = 10) {
     }
 }
 
+/**
+ * Convert Uint8Array back to bigint.
+ *
+ * This function will auto handle negative value to `-` sign.
+ */
 function uint8Array2BigInt(bytes) {
     let result = 0n;
     // Check if the most significant bit of the first byte is set (indicating a negative number)
@@ -310,9 +408,15 @@ function uint8Array2BigInt(bytes) {
     return isNegative ? -result : result;
 }
 
+/**
+ * Convert Uint8Array to hex.
+ *
+ * This function will convert value to bigint first then to hex,
+ * that can make sure negative value is correct handled.
+ */
 function uint8Array2Hex(bytes) {
     return bigInt2Hex(uint8Array2BigInt(bytes));
 }
 
 export { BigMath, abs, bigInt2Hex, bigInt2HexPadZero, bigInt2Uint8Array, crt, eGcd, gcd, hex2BigInt, hex2Uint8Array, hexPadZero, isEven, isOdd, isUnit, lcm, max, min, mod, modAdd, modInv, modMultiply, modPow, negate, phi, random, randomBytes, toBigInt, toZn, uint8Array2BigInt, uint8Array2Hex };
-//# sourceMappingURL=bigint-utils.es.js.map
+//# sourceMappingURL=bigint-toolkit.es.js.map

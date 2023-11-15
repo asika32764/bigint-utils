@@ -19,7 +19,7 @@ export default [
         file: pkg.browser,
         format: 'umd',
         sourcemap: true,
-        name: 'BigIntUtils',
+        name: 'BigIntToolkit',
       },
       {
         file: pkg.module,
@@ -32,7 +32,7 @@ export default [
             file: addMinToFilename(pkg.browser),
             format: 'esm',
             sourcemap: true,
-            name: 'BigIntUtils',
+            name: 'BigIntToolkit',
             plugins: [
               minify(),
             ]

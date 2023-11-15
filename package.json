@@ -1,9 +1,9 @@
 {
-  "name": "bigint-utils",
+  "name": "bigint-toolkit",
   "version": "0.1.0",
-  "main": "dist/bigint-utils.cjs",
-  "browser": "dist/bigint-utils.js",
-  "module": "dist/bigint-utils.es.js",
+  "main": "dist/bigint-toolkit.cjs",
+  "browser": "dist/bigint-toolkit.js",
+  "module": "dist/bigint-toolkit.es.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
@@ -13,10 +13,10 @@
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "doc": "node generate-docs.js"
   },
-  "homepage": "https://github.com/asika32764/bigint-utils",
+  "homepage": "https://github.com/asika32764/bigint-toolkit",
   "repository": {
     "type": "git",
-    "url": "https://github.com/asika32764/bigint-utils"
+    "url": "https://github.com/asika32764/bigint-toolkit"
   },
   "author": {
     "name": "Simon Asika",

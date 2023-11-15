@@ -1,4 +1,4 @@
-# BigInt Utils
+# BigInt Toolkit
 
 This library provides some useful arithmetic and converting functions for JS native BigInt.
 
@@ -7,11 +7,11 @@ This library provides some useful arithmetic and converting functions for JS nat
 ### Node
 
 ```shell
-npm i bigint-utils
+npm i bigint-toolkit
 
 # OR
 
-yarn add bigint-utils
+yarn add bigint-toolkit
 ```
 
 ### Browser
@@ -23,7 +23,7 @@ yarn add bigint-utils
 If you are using a bundler with ES like syntax, just import it.
 
 ```ts
-import { modPow } from 'bigint-utils';
+import { modPow } from 'bigint-toolkit';
 
 const r = modPow(100n, 50n, 70n);
 ```
@@ -31,7 +31,7 @@ const r = modPow(100n, 50n, 70n);
 The Math related functions also provides a `BigMath` namespace:
 
 ```ts
-import { max, min, BigMath } from 'bigint-utils';
+import { max, min, BigMath } from 'bigint-toolkit';
 
 max(5n, 10n, 12n);
 
@@ -43,7 +43,7 @@ BigMath.max(5n, 10n, 12n);
 This library only supports `bigint`, it can not mix use with `number`.
 
 ```ts
-import { max } from 'bigint-utils';
+import { max } from 'bigint-toolkit';
 
 max(5n, 10, 12); // Error
 ```
