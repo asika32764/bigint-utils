@@ -11,7 +11,9 @@ const nnsInputFiles = globSync([
   'src/math/**/*.ts',
   'src/utils/**/*.ts',
   'src/crypto/**/*.ts',
-]);
+], {
+  windowsPathsNoEscape: true
+}).map((path) => path.replace(/\\/g, '/'));
 
 generateDocumentation({
   inputFiles: nnsInputFiles,
