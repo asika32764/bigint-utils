@@ -1,7 +1,7 @@
 /**
  * Convert Uint8Array back to bigint.
  *
- * Set the second argument to TRUE will auto handle negative value to add `-` sign.
+ * Set the second argument to FALSE will always return positive value.
  */
 export function uint8Array2BigInt(bytes: Uint8Array, handleNegative: boolean = true): bigint {
   let result = 0n;
