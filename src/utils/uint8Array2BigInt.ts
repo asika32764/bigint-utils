@@ -3,13 +3,13 @@
  *
  * Set the second argument to TRUE will auto handle negative value to add `-` sign.
  */
-export function uint8Array2BigInt(bytes: Uint8Array, handleNegative: boolean = false): bigint {
+export function uint8Array2BigInt(bytes: Uint8Array, handleNegative: boolean = true): bigint {
   let result = 0n;
 
   // Check if the most significant bit of the first byte is set (indicating a negative number)
-  const isNegative = (bytes[0] & 0x80) !== 0;
+  const isNegative = handleNegative && (bytes[0] & 0x80) !== 0;
 
-  if (handleNegative && isNegative) {
+  if (isNegative) {
     // For negative numbers, perform two's complement inversion
     for (let i = 0; i < bytes.length; i++) {
       bytes[i] = ~bytes[i] & 0xff;
