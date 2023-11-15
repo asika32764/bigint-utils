@@ -73,8 +73,9 @@ function modInv(a, m) {
  * Function to implement Chinese Remainder Theorem.
  */
 function crt(num, rem) {
-    let sum = BigInt(0);
-    const prod = num.reduce((acc, val) => acc * val, BigInt(1)); // Product of all numbers
+    let sum = 0n;
+    // Product of all numbers
+    const prod = num.reduce((acc, val) => acc * val, 1n);
     for (let i = 0; i < num.length; i++) {
         const p = prod / num[i];
         sum += rem[i] * modInv(p, num[i]) * p;
@@ -382,7 +383,7 @@ function toBigInt(num, from = 10) {
 /**
  * Convert Uint8Array back to bigint.
  *
- * Set the second argument to TRUE will auto handle negative value to add `-` sign.
+ * Set the second argument to FALSE will always return positive value.
  */
 function uint8Array2BigInt(bytes, handleNegative = true) {
     let result = 0n;

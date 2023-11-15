@@ -23,9 +23,9 @@
 - [hexPadZero](#gear-hexpadzero)
 - [bigInt2Hex](#gear-bigint2hex)
 - [uint8Array2BigInt](#gear-uint8array2bigint)
+- [uint8Array2BigIntIgnoreNegative](#gear-uint8array2bigintignorenegative)
 - [uint8Array2HexIgnoreNegative](#gear-uint8array2hexignorenegative)
 - [uint8Array2Hex](#gear-uint8array2hex)
-- [uint8Array2BigIntIgnoreNegative](#gear-uint8array2bigintignorenegative)
 - [hex2BigInt](#gear-hex2bigint)
 - [toBigInt](#gear-tobigint)
 - [bigInt2HexPadZero](#gear-bigint2hexpadzero)
@@ -242,11 +242,19 @@ The second argument `padZero = true` will pad a `0` on start if return length is
 
 Convert Uint8Array back to bigint.
 
-Set the second argument to TRUE will auto handle negative value to add `-` sign.
+Set the second argument to FALSE will always return positive value.
 
 | Function | Type |
 | ---------- | ---------- |
 | `uint8Array2BigInt` | `(bytes: Uint8Array, handleNegative?: boolean) => bigint` |
+
+### :gear: uint8Array2BigIntIgnoreNegative
+
+Convert Uint8Array back to bigint and make positive.
+
+| Function | Type |
+| ---------- | ---------- |
+| `uint8Array2BigIntIgnoreNegative` | `(bytes: Uint8Array) => bigint` |
 
 ### :gear: uint8Array2HexIgnoreNegative
 
@@ -266,14 +274,6 @@ that can make sure negative value is correct handled.
 | Function | Type |
 | ---------- | ---------- |
 | `uint8Array2Hex` | `(bytes: Uint8Array, handleNegative?: boolean) => string` |
-
-### :gear: uint8Array2BigIntIgnoreNegative
-
-Convert Uint8Array back to bigint and make positive.
-
-| Function | Type |
-| ---------- | ---------- |
-| `uint8Array2BigIntIgnoreNegative` | `(bytes: Uint8Array) => bigint` |
 
 ### :gear: hex2BigInt
 

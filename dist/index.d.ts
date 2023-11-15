@@ -217,7 +217,7 @@ declare function toBigInt(num: string | bigint | number, from?: number): bigint;
 /**
  * Convert Uint8Array back to bigint.
  *
- * Set the second argument to TRUE will auto handle negative value to add `-` sign.
+ * Set the second argument to FALSE will always return positive value.
  */
 declare function uint8Array2BigInt(bytes: Uint8Array, handleNegative?: boolean): bigint;
 
