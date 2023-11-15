@@ -1,6 +1,6 @@
 {
   "name": "bigint-toolkit",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/bigint-toolkit.cjs",
   "browser": "dist/bigint-toolkit.js",
   "module": "dist/bigint-toolkit.es.js",
