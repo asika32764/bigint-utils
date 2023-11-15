@@ -7,6 +7,6 @@ import { uint8Array2BigInt } from './uint8Array2BigInt';
  * This function will convert value to bigint first then to hex,
  * that can make sure negative value is correct handled.
  */
-export function uint8Array2Hex(bytes: Uint8Array): string {
-  return bigInt2Hex(uint8Array2BigInt(bytes));
+export function uint8Array2Hex(bytes: Uint8Array, handleNegative: boolean = false): string {
+  return bigInt2Hex(uint8Array2BigInt(bytes, handleNegative));
 }
