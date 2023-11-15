@@ -1,4 +1,6 @@
 yarn build:prod
+yarn doc
 git add .
-git commit -am "Build for release."
-npm version $1
+git commit -am "Prepare for release."
+npm version "${1:-patch}"
+npm publish
