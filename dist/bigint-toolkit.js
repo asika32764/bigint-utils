@@ -435,7 +435,7 @@
      * Convert Uint8Array to hex and make result positive.
      */
     function uint8Array2HexIgnoreNegative(bytes) {
-        return bigInt2Hex(uint8Array2BigInt(bytes));
+        return bigInt2Hex(uint8Array2BigIntIgnoreNegative(bytes));
     }
 
     exports.BigMath = BigMath;

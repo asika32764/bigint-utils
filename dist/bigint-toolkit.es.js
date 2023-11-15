@@ -429,7 +429,7 @@ function uint8Array2Hex(bytes, handleNegative = false) {
  * Convert Uint8Array to hex and make result positive.
  */
 function uint8Array2HexIgnoreNegative(bytes) {
-    return bigInt2Hex(uint8Array2BigInt(bytes));
+    return bigInt2Hex(uint8Array2BigIntIgnoreNegative(bytes));
 }
 
 export { BigMath, abs, bigInt2Hex, bigInt2HexPadZero, bigInt2Uint8Array, crt, eGcd, gcd, hex2BigInt, hex2Uint8Array, hexPadZero, isEven, isOdd, isUnit, lcm, max, min, mod, modAdd, modInv, modMultiply, modPow, negate, phi, random, randomBytes, toBigInt, toZn, uint8Array2BigInt, uint8Array2BigIntIgnoreNegative, uint8Array2Hex, uint8Array2HexIgnoreNegative };
