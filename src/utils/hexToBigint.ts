@@ -1,7 +1,7 @@
 /**
  * Convert hex to bigint and add `-` sign if origin bigint is negative.
  */
-export function hex2BigInt(hex: string): bigint {
+export function hexToBigint(hex: string): bigint {
   const isNegative = hex.startsWith('-');
 
   if (isNegative) {

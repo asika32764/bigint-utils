@@ -106,10 +106,10 @@ with ES module, the `--experimental-vm-modules` mode may be more stable after No
 - [uint8Array2BigIntIgnoreNegative](#gear-uint8array2bigintignorenegative)
 - [uint8Array2HexIgnoreNegative](#gear-uint8array2hexignorenegative)
 - [uint8Array2Hex](#gear-uint8array2hex)
-- [hex2BigInt](#gear-hex2bigint)
+- [hexToBigint](#gear-hex2bigint)
 - [toBigInt](#gear-tobigint)
 - [bigInt2HexPadZero](#gear-bigint2hexpadzero)
-- [hex2Uint8Array](#gear-hex2uint8array)
+- [hexToUint8](#gear-hex2uint8array)
 - [bigInt2Uint8Array](#gear-bigint2uint8array)
 
 ### :gear: toZn
@@ -355,13 +355,13 @@ that can make sure negative value is correct handled.
 | ---------- | ---------- |
 | `uint8Array2Hex` | `(bytes: Uint8Array, handleNegative?: boolean) => string` |
 
-### :gear: hex2BigInt
+### :gear: hexToBigint
 
 Convert hex to bigint and add `-` sign if origin bigint is negative.
 
 | Function | Type |
 | ---------- | ---------- |
-| `hex2BigInt` | `(hex: string) => bigint` |
+| `hexToBigint` | `(hex: string) => bigint` |
 
 ### :gear: toBigInt
 
@@ -379,13 +379,13 @@ Bigint to hex conversion and pad a `0` on start if return length is odd.
 | ---------- | ---------- |
 | `bigInt2HexPadZero` | `(num: bigint) => string` |
 
-### :gear: hex2Uint8Array
+### :gear: hexToUint8
 
 Convert hex string to Uint8Array.
 
 | Function | Type |
 | ---------- | ---------- |
-| `hex2Uint8Array` | `(hex: string) => Uint8Array` |
+| `hexToUint8` | `(hex: string) => Uint8Array` |
 
 ### :gear: bigInt2Uint8Array
 

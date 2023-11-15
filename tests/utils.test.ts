@@ -1,12 +1,12 @@
-import { bigInt2Uint8Array, uint8Array2BigInt } from '../src';
-import { uint8Array2Hex } from '../src/utils/uint8Array2Hex';
+import { bigintToUint8, uint8ToBigint } from '../src';
+import { uint8ToHex } from '../src/utils/uint8ToHex';
 
 describe('Utils', () => {
   test.each(bigInt2Uint8ArrayCases())('Test bigInt2Uint8Array: $args', ({ args: [n], expected }) => {
-    expect(bigInt2Uint8Array(n)).toStrictEqual(expected);
+    expect(bigintToUint8(n, true)).toStrictEqual(expected);
   });
   test.each(uint8Array2BigIntCases())('Test uint8Array2BigInt: $args', ({ args: [n], expected }) => {
-    expect(uint8Array2BigInt(n)).toBe(expected);
+    expect(uint8ToBigint(n, true)).toBe(expected);
   });
 });
 

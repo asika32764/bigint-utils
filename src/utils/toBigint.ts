@@ -1,4 +1,4 @@
-import { hex2BigInt } from './hex2BigInt';
+import { hexToBigint } from './hexToBigint';
 
 /**
  * Convert any base of numbers to bigint.
@@ -10,7 +10,7 @@ import { hex2BigInt } from './hex2BigInt';
  *
  * This function will auto add negative to hex string if input value less than 0.
  */
-export function toBigInt(num: string | bigint | number, from: number = 10) {
+export function toBigint(num: string | bigint | number, from: number = 10) {
   if (typeof num === 'bigint') {
     return num;
   }
@@ -22,7 +22,7 @@ export function toBigInt(num: string | bigint | number, from: number = 10) {
   if (from === 10) {
     return BigInt(num);
   } else if (from === 16) {
-    return hex2BigInt(num);
+    return hexToBigint(num);
   } else {
     let decimalValue = 0n;
     for (let i = 0; i < num.length; i++) {

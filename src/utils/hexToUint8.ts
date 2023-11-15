@@ -1,7 +1,7 @@
 /**
  * Convert hex string to Uint8Array.
  */
-export function hex2Uint8Array(hex: string): Uint8Array {
+export function hexToUint8(hex: string): Uint8Array {
   // Calculate the number of bytes needed
   const numBytes = hex.length / 2;
   const byteArray = new Uint8Array(numBytes);

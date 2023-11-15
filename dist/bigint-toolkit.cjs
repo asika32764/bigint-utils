@@ -300,7 +300,7 @@ function hexPadZero(hex) {
  *
  * The second argument `padZero = true` will pad a `0` on start if return length is odd.
  */
-function bigInt2Hex(num, padZero = false) {
+function bigintToHex(num, padZero = false) {
     let hexString = num.toString(16);
     if (!padZero) {
         return hexString;
@@ -311,14 +311,14 @@ function bigInt2Hex(num, padZero = false) {
 /**
  * Bigint to hex conversion and pad a `0` on start if return length is odd.
  */
-function bigInt2HexPadZero(num) {
-    return bigInt2Hex(num, true);
+function bigintToHexPadZero(num) {
+    return bigintToHex(num, true);
 }
 
 /**
  * Convert hex string to Uint8Array.
  */
-function hex2Uint8Array(hex) {
+function hexToUint8(hex) {
     // Calculate the number of bytes needed
     const numBytes = hex.length / 2;
     const byteArray = new Uint8Array(numBytes);
@@ -332,19 +332,20 @@ function hex2Uint8Array(hex) {
 /**
  * Bigint to Uint8Array conversion.
  */
-function bigInt2Uint8Array(num, handleNegative = true) {
+function bigintToUint8(num, handleNegative = true) {
+    // Do a Bit complement to convert negative bigint to positive bigint
     if (num < 0n && handleNegative) {
         const bits = (BigInt(num.toString(2).length) / 8n + 1n) * 8n;
         const prefix1 = 1n << bits;
         num += prefix1;
     }
-    return hex2Uint8Array(bigInt2HexPadZero(num));
+    return hexToUint8(bigintToHexPadZero(num));
 }
 
 /**
  * Convert hex to bigint and add `-` sign if origin bigint is negative.
  */
-function hex2BigInt(hex) {
+function hexToBigint(hex) {
     const isNegative = hex.startsWith('-');
     if (isNegative) {
         hex = hex.substring(1);
@@ -363,7 +364,7 @@ function hex2BigInt(hex) {
  *
  * This function will auto add negative to hex string if input value less than 0.
  */
-function toBigInt(num, from = 10) {
+function toBigint(num, from = 10) {
     if (typeof num === 'bigint') {
         return num;
     }
@@ -374,7 +375,7 @@ function toBigInt(num, from = 10) {
         return BigInt(num);
     }
     else if (from === 16) {
-        return hex2BigInt(num);
+        return hexToBigint(num);
     }
     else {
         let decimalValue = 0n;
@@ -392,9 +393,9 @@ function toBigInt(num, from = 10) {
 /**
  * Convert Uint8Array back to bigint.
  *
- * Set the second argument to FALSE will always return positive value.
+ * Set the second argument to TRUE will always return positive value.
  */
-function uint8Array2BigInt(bytes, handleNegative = true) {
+function uint8ToBigint(bytes, handleNegative = true) {
     let result = 0n;
     // Check if the most significant bit of the first byte is set (indicating a negative number)
     const isNegative = handleNegative && (bytes[0] & 0x80) !== 0;
@@ -421,8 +422,8 @@ function uint8Array2BigInt(bytes, handleNegative = true) {
 /**
  * Convert Uint8Array back to bigint and make positive.
  */
-function uint8Array2BigIntIgnoreNegative(bytes) {
-    return uint8Array2BigInt(bytes, false);
+function uint8ToBigintPositive(bytes) {
+    return uint8ToBigint(bytes, false);
 }
 
 /**
@@ -431,28 +432,28 @@ function uint8Array2BigIntIgnoreNegative(bytes) {
  * This function will convert value to bigint first then to hex,
  * that can make sure negative value is correct handled.
  */
-function uint8Array2Hex(bytes, handleNegative = false) {
-    return bigInt2Hex(uint8Array2BigInt(bytes, handleNegative));
+function uint8ToHex(bytes, asPositive = false) {
+    return bigintToHex(uint8ToBigint(bytes, asPositive));
 }
 
 /**
  * Convert Uint8Array to hex and make result positive.
  */
-function uint8Array2HexIgnoreNegative(bytes) {
-    return bigInt2Hex(uint8Array2BigIntIgnoreNegative(bytes));
+function uint8ToHexPositive(bytes) {
+    return bigintToHex(uint8ToBigintPositive(bytes));
 }
 
 exports.BigMath = BigMath;
 exports.abs = abs;
-exports.bigInt2Hex = bigInt2Hex;
-exports.bigInt2HexPadZero = bigInt2HexPadZero;
-exports.bigInt2Uint8Array = bigInt2Uint8Array;
+exports.bigintToHex = bigintToHex;
+exports.bigintToHexPadZero = bigintToHexPadZero;
+exports.bigintToUint8 = bigintToUint8;
 exports.crt = crt;
 exports.eGcd = eGcd;
 exports.gcd = gcd;
-exports.hex2BigInt = hex2BigInt;
-exports.hex2Uint8Array = hex2Uint8Array;
 exports.hexPadZero = hexPadZero;
+exports.hexToBigint = hexToBigint;
+exports.hexToUint8 = hexToUint8;
 exports.isEven = isEven;
 exports.isOdd = isOdd;
 exports.isUnit = isUnit;
@@ -468,10 +469,10 @@ exports.negate = negate;
 exports.phi = phi;
 exports.random = random;
 exports.randomBytes = randomBytes;
-exports.toBigInt = toBigInt;
+exports.toBigint = toBigint;
 exports.toZn = toZn;
-exports.uint8Array2BigInt = uint8Array2BigInt;
-exports.uint8Array2BigIntIgnoreNegative = uint8Array2BigIntIgnoreNegative;
-exports.uint8Array2Hex = uint8Array2Hex;
-exports.uint8Array2HexIgnoreNegative = uint8Array2HexIgnoreNegative;
+exports.uint8ToBigint = uint8ToBigint;
+exports.uint8ToBigintPositive = uint8ToBigintPositive;
+exports.uint8ToHex = uint8ToHex;
+exports.uint8ToHexPositive = uint8ToHexPositive;
 //# sourceMappingURL=bigint-toolkit.cjs.map

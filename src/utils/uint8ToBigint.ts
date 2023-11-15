@@ -1,9 +1,9 @@
 /**
  * Convert Uint8Array back to bigint.
  *
- * Set the second argument to FALSE will always return positive value.
+ * Set the second argument to TRUE will always return positive value.
  */
-export function uint8Array2BigInt(bytes: Uint8Array, handleNegative: boolean = true): bigint {
+export function uint8ToBigint(bytes: Uint8Array, handleNegative: boolean = false): bigint {
   let result = 0n;
 
   // Check if the most significant bit of the first byte is set (indicating a negative number)

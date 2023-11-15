@@ -5,7 +5,7 @@ import { hexPadZero } from './hexPadZero';
  *
  * The second argument `padZero = true` will pad a `0` on start if return length is odd.
  */
-export function bigInt2Hex(num: bigint, padZero = false) {
+export function bigintToHex(num: bigint, padZero = false) {
   let hexString = num.toString(16);
 
   if (!padZero) {

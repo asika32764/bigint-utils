@@ -182,27 +182,27 @@ declare function randomBytes(bufferSize: number): Uint8Array;
  *
  * The second argument `padZero = true` will pad a `0` on start if return length is odd.
  */
-declare function bigInt2Hex(num: bigint, padZero?: boolean): string;
+declare function bigintToHex(num: bigint, padZero?: boolean): string;
 
 /**
  * Bigint to hex conversion and pad a `0` on start if return length is odd.
  */
-declare function bigInt2HexPadZero(num: bigint): string;
+declare function bigintToHexPadZero(num: bigint): string;
 
 /**
  * Bigint to Uint8Array conversion.
  */
-declare function bigInt2Uint8Array(num: bigint, handleNegative?: boolean): Uint8Array;
+declare function bigintToUint8(num: bigint, handleNegative?: boolean): Uint8Array;
 
 /**
  * Convert hex to bigint and add `-` sign if origin bigint is negative.
  */
-declare function hex2BigInt(hex: string): bigint;
+declare function hexToBigint(hex: string): bigint;
 
 /**
  * Convert hex string to Uint8Array.
  */
-declare function hex2Uint8Array(hex: string): Uint8Array;
+declare function hexToUint8(hex: string): Uint8Array;
 
 /**
  * Pad `0` to start if hex string length is odd.
@@ -219,19 +219,19 @@ declare function hexPadZero(hex: string): string;
  *
  * This function will auto add negative to hex string if input value less than 0.
  */
-declare function toBigInt(num: string | bigint | number, from?: number): bigint;
+declare function toBigint(num: string | bigint | number, from?: number): bigint;
 
 /**
  * Convert Uint8Array back to bigint.
  *
- * Set the second argument to FALSE will always return positive value.
+ * Set the second argument to TRUE will always return positive value.
  */
-declare function uint8Array2BigInt(bytes: Uint8Array, handleNegative?: boolean): bigint;
+declare function uint8ToBigint(bytes: Uint8Array, handleNegative?: boolean): bigint;
 
 /**
  * Convert Uint8Array back to bigint and make positive.
  */
-declare function uint8Array2BigIntIgnoreNegative(bytes: Uint8Array): bigint;
+declare function uint8ToBigintPositive(bytes: Uint8Array): bigint;
 
 /**
  * Convert Uint8Array to hex.
@@ -239,11 +239,11 @@ declare function uint8Array2BigIntIgnoreNegative(bytes: Uint8Array): bigint;
  * This function will convert value to bigint first then to hex,
  * that can make sure negative value is correct handled.
  */
-declare function uint8Array2Hex(bytes: Uint8Array, handleNegative?: boolean): string;
+declare function uint8ToHex(bytes: Uint8Array, asPositive?: boolean): string;
 
 /**
  * Convert Uint8Array to hex and make result positive.
  */
-declare function uint8Array2HexIgnoreNegative(bytes: Uint8Array): string;
+declare function uint8ToHexPositive(bytes: Uint8Array): string;
 
-export { BigMath, EgcdResult, abs, bigInt2Hex, bigInt2HexPadZero, bigInt2Uint8Array, crt, eGcd, gcd, hex2BigInt, hex2Uint8Array, hexPadZero, isEven, isOdd, isUnit, lcm, max, min, mod, modAdd, modInv, modMultiply, modPow, negate, phi, random, randomBytes, toBigInt, toZn, uint8Array2BigInt, uint8Array2BigIntIgnoreNegative, uint8Array2Hex, uint8Array2HexIgnoreNegative };
+export { BigMath, EgcdResult, abs, bigintToHex, bigintToHexPadZero, bigintToUint8, crt, eGcd, gcd, hexPadZero, hexToBigint, hexToUint8, isEven, isOdd, isUnit, lcm, max, min, mod, modAdd, modInv, modMultiply, modPow, negate, phi, random, randomBytes, toBigint, toZn, uint8ToBigint, uint8ToBigintPositive, uint8ToHex, uint8ToHexPositive };
