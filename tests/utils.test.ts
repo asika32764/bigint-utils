@@ -1,7 +1,12 @@
-import { bigintToUint8, uint8ToBigint } from '../src';
-import { uint8ToHex } from '../src/utils/uint8ToHex';
+import { bigintToUint8, toBigint, uint8ToBigint } from '../src';
 
 describe('Utils', () => {
+  test('Test toBigint()', () => {
+    expect(toBigint('111010110111100110100010101', 2)).toBe(123456789n);
+    expect(toBigint('75bcd15', 16)).toBe(123456789n);
+    expect(toBigint('123456789')).toBe(123456789n);
+    expect(toBigint(123456789)).toBe(123456789n);
+  });
   test.each(bigInt2Uint8ArrayCases())('Test bigInt2Uint8Array: $args', ({ args: [n], expected }) => {
     expect(bigintToUint8(n, true)).toStrictEqual(expected);
   });

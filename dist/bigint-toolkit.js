@@ -335,6 +335,18 @@
 
     /**
      * Bigint to Uint8Array conversion.
+     *
+     * By default, this function unable to handle negative bigint, and will throw an Error.
+     * If you want to convert a negative bigint to Uint8Array, set second argument as TRUE,
+     * that this functions will try making 2's complement on the bigint to make it
+     * positive.
+     *
+     * NOTE: If you convert a negative bigint to Uint8Array, you must use
+     *
+     * - `uint8ToBigint(num, true)`
+     * - `uint8ToBigintWithNegative(num)`
+     *
+     * to inverse the Uint8Array so you can get negative bigint back.
      */
     function bigintToUint8(num, handleNegative = false) {
         if (num < 0n) {
@@ -351,6 +363,9 @@
         return hexToUint8(bigintToHexPadZero(num));
     }
 
+    /**
+     * Convert an `ArrayBufferLike` interface to `Uint8Array`.
+     */
     function bufferToUint8(buffer) {
         return new Uint8Array(buffer);
     }
@@ -406,7 +421,8 @@
     /**
      * Convert Uint8Array back to bigint.
      *
-     * Set the second argument to TRUE will always return positive value.
+     * If an Uint8Array has 2's complement (Mostly converted from a negative number),
+     * set second argument as TRUE to inverse it.
      */
     function uint8ToBigint(bytes, handleNegative = false) {
         let result = 0n;
@@ -433,28 +449,31 @@
     }
 
     /**
-     * Convert Uint8Array back to bigint and make positive.
+     * Convert Uint8Array back to bigint and inverse the 2's complement (negative).
      */
     function uint8ToBigintWithNegative(bytes) {
         return uint8ToBigint(bytes, true);
     }
 
+    /**
+     * Convert Uint8Array to ArrayBufferLike.
+     */
     function uint8ToBuffer(bytes) {
         return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
     }
 
     /**
-     * Convert Uint8Array to hex.
+     * Convert Uint8Array to hex string.
      *
-     * This function will convert value to bigint first then to hex,
-     * that can make sure negative value is correct handled.
+     * If an Uint8Array has 2's complement (Mostly converted from a negative number),
+     * set second argument as TRUE to inverse it.
      */
     function uint8ToHex(bytes, handleNegative = false) {
         return bigintToHex(uint8ToBigint(bytes, handleNegative));
     }
 
     /**
-     * Convert Uint8Array to hex and make result positive.
+     * Convert Uint8Array to hex and inverse the 2's complement (negative).
      */
     function uint8ToHexWithNegative(bytes) {
         return bigintToHex(uint8ToBigintWithNegative(bytes));

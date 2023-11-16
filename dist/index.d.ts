@@ -191,10 +191,25 @@ declare function bigintToHexPadZero(num: bigint): string;
 
 /**
  * Bigint to Uint8Array conversion.
+ *
+ * By default, this function unable to handle negative bigint, and will throw an Error.
+ * If you want to convert a negative bigint to Uint8Array, set second argument as TRUE,
+ * that this functions will try making 2's complement on the bigint to make it
+ * positive.
+ *
+ * NOTE: If you convert a negative bigint to Uint8Array, you must use
+ *
+ * - `uint8ToBigint(num, true)`
+ * - `uint8ToBigintWithNegative(num)`
+ *
+ * to inverse the Uint8Array so you can get negative bigint back.
  */
 declare function bigintToUint8(num: bigint, handleNegative?: boolean): Uint8Array;
 
-declare function bufferToUint8(buffer: ArrayBufferLike): ArrayBuffer;
+/**
+ * Convert an `ArrayBufferLike` interface to `Uint8Array`.
+ */
+declare function bufferToUint8(buffer: ArrayBufferLike): Uint8Array;
 
 /**
  * Convert hex to bigint and add `-` sign if origin bigint is negative.
@@ -226,27 +241,31 @@ declare function toBigint(num: string | bigint | number, from?: number): bigint;
 /**
  * Convert Uint8Array back to bigint.
  *
- * Set the second argument to TRUE will always return positive value.
+ * If an Uint8Array has 2's complement (Mostly converted from a negative number),
+ * set second argument as TRUE to inverse it.
  */
 declare function uint8ToBigint(bytes: Uint8Array, handleNegative?: boolean): bigint;
 
 /**
- * Convert Uint8Array back to bigint and make positive.
+ * Convert Uint8Array back to bigint and inverse the 2's complement (negative).
  */
 declare function uint8ToBigintWithNegative(bytes: Uint8Array): bigint;
 
-declare function uint8ToBuffer(bytes: Uint8Array): ArrayBuffer;
+/**
+ * Convert Uint8Array to ArrayBufferLike.
+ */
+declare function uint8ToBuffer(bytes: Uint8Array): ArrayBufferLike;
 
 /**
- * Convert Uint8Array to hex.
+ * Convert Uint8Array to hex string.
  *
- * This function will convert value to bigint first then to hex,
- * that can make sure negative value is correct handled.
+ * If an Uint8Array has 2's complement (Mostly converted from a negative number),
+ * set second argument as TRUE to inverse it.
  */
 declare function uint8ToHex(bytes: Uint8Array, handleNegative?: boolean): string;
 
 /**
- * Convert Uint8Array to hex and make result positive.
+ * Convert Uint8Array to hex and inverse the 2's complement (negative).
  */
 declare function uint8ToHexWithNegative(bytes: Uint8Array): string;
 
