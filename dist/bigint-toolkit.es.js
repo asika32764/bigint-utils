@@ -380,8 +380,9 @@ function hexToBigint(hex) {
  * Convert any base of numbers to bigint.
  *
  * ```
- * toBigInt(12345678)
- * toBigInt('{hex string}', 16)
+ * toBigInt(123456789)
+ * toBigInt('75bcd15', 16)
+ * toBigInt('111010110111100110100010101', 2)
  * ```
  *
  * This function will auto add negative to hex string if input value less than 0.

@@ -393,8 +393,9 @@ Convert hex to bigint and add `-` sign if origin bigint is negative.
 Convert any base of numbers to bigint.
 
 ```
-toBigInt(12345678)
-toBigInt('{hex string}', 16)
+toBigInt(123456789)
+toBigInt('75bcd15', 16)
+toBigInt('111010110111100110100010101', 2)
 ```
 
 This function will auto add negative to hex string if input value less than 0.
@@ -433,7 +434,7 @@ NOTE: If you convert a negative bigint to Uint8Array, you must use
 - `uint8ToBigint(num, true)`
 - `uint8ToBigintWithNegative(num)`
 
-to inverse the Uint8Array to you can get negative bigint back.
+to inverse the Uint8Array so you can get negative bigint back.
 
 | Function | Type |
 | ---------- | ---------- |
