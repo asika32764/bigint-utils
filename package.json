@@ -6,6 +6,7 @@
   "module": "dist/bigint-toolkit.es.js",
   "typings": "dist/index.d.ts",
   "license": "MIT",
+  "keywords": ["bigint", "math", "conversion", "uint8", "hex", "buffer", "mod", "modpow", "airth"],
   "scripts": {
     "build:prod": "cross-env NODE_ENV=production rollup -c",
     "build": "cross-env NODE_ENV=development rollup -c",
