@@ -194,6 +194,8 @@ declare function bigintToHexPadZero(num: bigint): string;
  */
 declare function bigintToUint8(num: bigint, handleNegative?: boolean): Uint8Array;
 
+declare function bufferToUint8(buffer: ArrayBufferLike): ArrayBuffer;
+
 /**
  * Convert hex to bigint and add `-` sign if origin bigint is negative.
  */
@@ -231,7 +233,9 @@ declare function uint8ToBigint(bytes: Uint8Array, handleNegative?: boolean): big
 /**
  * Convert Uint8Array back to bigint and make positive.
  */
-declare function uint8ToBigintPositive(bytes: Uint8Array): bigint;
+declare function uint8ToBigintWithNegative(bytes: Uint8Array): bigint;
+
+declare function uint8ToBuffer(bytes: Uint8Array): ArrayBuffer;
 
 /**
  * Convert Uint8Array to hex.
@@ -239,11 +243,11 @@ declare function uint8ToBigintPositive(bytes: Uint8Array): bigint;
  * This function will convert value to bigint first then to hex,
  * that can make sure negative value is correct handled.
  */
-declare function uint8ToHex(bytes: Uint8Array, asPositive?: boolean): string;
+declare function uint8ToHex(bytes: Uint8Array, handleNegative?: boolean): string;
 
 /**
  * Convert Uint8Array to hex and make result positive.
  */
-declare function uint8ToHexPositive(bytes: Uint8Array): string;
+declare function uint8ToHexWithNegative(bytes: Uint8Array): string;
 
-export { BigMath, EgcdResult, abs, bigintToHex, bigintToHexPadZero, bigintToUint8, crt, eGcd, gcd, hexPadZero, hexToBigint, hexToUint8, isEven, isOdd, isUnit, lcm, max, min, mod, modAdd, modInv, modMultiply, modPow, negate, phi, random, randomBytes, toBigint, toZn, uint8ToBigint, uint8ToBigintPositive, uint8ToHex, uint8ToHexPositive };
+export { BigMath, EgcdResult, abs, bigintToHex, bigintToHexPadZero, bigintToUint8, bufferToUint8, crt, eGcd, gcd, hexPadZero, hexToBigint, hexToUint8, isEven, isOdd, isUnit, lcm, max, min, mod, modAdd, modInv, modMultiply, modPow, negate, phi, random, randomBytes, toBigint, toZn, uint8ToBigint, uint8ToBigintWithNegative, uint8ToBuffer, uint8ToHex, uint8ToHexWithNegative };

@@ -1,7 +1,8 @@
 /**
  * Convert Uint8Array back to bigint.
  *
- * Set the second argument to TRUE will always return positive value.
+ * If an Uint8Array has 2's complement (Mostly converted from a negative number),
+ * set second argument as TRUE to inverse it.
  */
 export function uint8ToBigint(bytes: Uint8Array, handleNegative: boolean = false): bigint {
   let result = 0n;

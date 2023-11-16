@@ -3,6 +3,18 @@ import { hexToUint8 } from './hexToUint8';
 
 /**
  * Bigint to Uint8Array conversion.
+ *
+ * By default, this function unable to handle negative bigint, and will throw an Error.
+ * If you want to convert a negative bigint to Uint8Array, set second argument as TRUE,
+ * that this functions will try making 2's complement on the bigint to make it
+ * positive.
+ *
+ * NOTE: If you convert a negative bigint to Uint8Array, you must use
+ *
+ * - `uint8ToBigint(num, true)`
+ * - `uint8ToBigintWithNegative(num)`
+ *
+ * to inverse the Uint8Array so you can get negative bigint back.
  */
 export function bigintToUint8(num: bigint, handleNegative = false): Uint8Array {
   if (num < 0n) {

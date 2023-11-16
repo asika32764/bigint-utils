@@ -330,14 +330,23 @@ function hexToUint8(hex) {
 /**
  * Bigint to Uint8Array conversion.
  */
-function bigintToUint8(num, handleNegative = true) {
-    // Do a Bit complement to convert negative bigint to positive bigint
-    if (num < 0n && handleNegative) {
-        const bits = (BigInt(num.toString(2).length) / 8n + 1n) * 8n;
-        const prefix1 = 1n << bits;
-        num += prefix1;
+function bigintToUint8(num, handleNegative = false) {
+    if (num < 0n) {
+        if (handleNegative) {
+            // Do a Bit complement to convert negative bigint to positive bigint
+            const bits = (BigInt(num.toString(2).length) / 8n + 1n) * 8n;
+            const prefix1 = 1n << bits;
+            num += prefix1;
+        }
+        else {
+            throw new Error('BigInt should larger than 0 to convert to Uint8Array');
+        }
     }
     return hexToUint8(bigintToHexPadZero(num));
+}
+
+function bufferToUint8(buffer) {
+    return new Uint8Array(buffer);
 }
 
 /**
@@ -393,7 +402,7 @@ function toBigint(num, from = 10) {
  *
  * Set the second argument to TRUE will always return positive value.
  */
-function uint8ToBigint(bytes, handleNegative = true) {
+function uint8ToBigint(bytes, handleNegative = false) {
     let result = 0n;
     // Check if the most significant bit of the first byte is set (indicating a negative number)
     const isNegative = handleNegative && (bytes[0] & 0x80) !== 0;
@@ -420,8 +429,12 @@ function uint8ToBigint(bytes, handleNegative = true) {
 /**
  * Convert Uint8Array back to bigint and make positive.
  */
-function uint8ToBigintPositive(bytes) {
-    return uint8ToBigint(bytes, false);
+function uint8ToBigintWithNegative(bytes) {
+    return uint8ToBigint(bytes, true);
+}
+
+function uint8ToBuffer(bytes) {
+    return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
 }
 
 /**
@@ -430,16 +443,16 @@ function uint8ToBigintPositive(bytes) {
  * This function will convert value to bigint first then to hex,
  * that can make sure negative value is correct handled.
  */
-function uint8ToHex(bytes, asPositive = false) {
-    return bigintToHex(uint8ToBigint(bytes, asPositive));
+function uint8ToHex(bytes, handleNegative = false) {
+    return bigintToHex(uint8ToBigint(bytes, handleNegative));
 }
 
 /**
  * Convert Uint8Array to hex and make result positive.
  */
-function uint8ToHexPositive(bytes) {
-    return bigintToHex(uint8ToBigintPositive(bytes));
+function uint8ToHexWithNegative(bytes) {
+    return bigintToHex(uint8ToBigintWithNegative(bytes));
 }
 
-export { BigMath, abs, bigintToHex, bigintToHexPadZero, bigintToUint8, crt, eGcd, gcd, hexPadZero, hexToBigint, hexToUint8, isEven, isOdd, isUnit, lcm, max, min, mod, modAdd, modInv, modMultiply, modPow, negate, phi, random, randomBytes, toBigint, toZn, uint8ToBigint, uint8ToBigintPositive, uint8ToHex, uint8ToHexPositive };
+export { BigMath, abs, bigintToHex, bigintToHexPadZero, bigintToUint8, bufferToUint8, crt, eGcd, gcd, hexPadZero, hexToBigint, hexToUint8, isEven, isOdd, isUnit, lcm, max, min, mod, modAdd, modInv, modMultiply, modPow, negate, phi, random, randomBytes, toBigint, toZn, uint8ToBigint, uint8ToBigintWithNegative, uint8ToBuffer, uint8ToHex, uint8ToHexWithNegative };
 //# sourceMappingURL=bigint-toolkit.es.js.map
