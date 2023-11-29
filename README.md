@@ -16,7 +16,26 @@ yarn add bigint-toolkit
 
 ### Browser
 
-...
+UMD
+
+```html
+<script src="dist/bigint-toolkit.min.js"></script>
+```
+
+```js
+BigIntToolkit.modPow(...);
+```
+
+ES Module
+
+```html
+<script type="module">
+import { modPow } from './dist/bigint-toolkit.es.min.js';
+
+modPow(...);
+</script>
+```
+
 
 ## Usages
 
