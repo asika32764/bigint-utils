@@ -1,4 +1,4 @@
-# BigInt Toolkit
+# BigInt Toolkit (ES2020)
 
 This library provides some useful arithmetic and converting functions for ES2020 BigInt.
 
