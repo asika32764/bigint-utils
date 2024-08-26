@@ -1,6 +1,6 @@
 # BigInt Toolkit
 
-This library provides some useful arithmetic and converting functions for JS native BigInt.
+This library provides some useful arithmetic and converting functions for ES2020 BigInt.
 
 ## Installation
 
